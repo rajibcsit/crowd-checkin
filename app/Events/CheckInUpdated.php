@@ -35,4 +35,16 @@ class CheckInUpdated implements ShouldBroadcast
         return new Channel('event.'.$this->event->id);
 
     }
+
+    public function broadcastWith()
+    {
+        return [
+            'checked_in_count' => $this->event->attendees()->where('checked_in', true)->count(),
+            'remaining_capacity' => $this->event->remainingCapacity(),
+            'last_checked_in' => [
+                'name' => $this->event->attendees()->latest()->first()->name,
+                'email' => $this->event->attendees()->latest()->first()->email,
+            ]
+        ];
+    }
 }
