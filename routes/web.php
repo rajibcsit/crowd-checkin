@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [EventController::class, 'index']);
+Route::get('/events/{event}', [EventController::class, 'show']);
 Route::post('/events', [EventController::class, 'store']);
 
 Route::post('/events/{event}/attendees', [AttendeeController::class, 'store']);

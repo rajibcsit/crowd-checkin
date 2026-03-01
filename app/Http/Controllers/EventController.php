@@ -15,7 +15,13 @@ class EventController extends Controller
             }
         ])->get();
 
-        return view('events.index', compact('events'));
+        return view('events.list', compact('events'));
+    }
+
+    public function show(Event $event)
+    {
+        $event->load('attendees');
+        return view('events.show', compact('event'));
     }
 
     public function store(Request $request)

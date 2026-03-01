@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AttendeeController extends Controller
 {
     public function store(Request $request, Event $event)
-    {
-        $request->validate([
+        {
+            $request->validate([
             'name' => 'required',
-            'email' => 'required|email'
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('attendees')
+                    ->where(function ($query) use ($event) {
+                        return $query->where('event_id', $event->id);
+                    })
+            ],
+        ], [
+            'email.unique' => 'This email is already registered for this event.'
         ]);
 
         if ($event->remainingCapacity() <= 0) {
