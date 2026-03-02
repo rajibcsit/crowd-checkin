@@ -34,9 +34,7 @@ class AttendeeController extends Controller
         }
 
         $attendee->update(['checked_in' => true]);
-
-        broadcast(new \App\Events\CheckInUpdated($attendee->event))->toOthers();
-        
+ 
         return back()->with('success', 'Checked in successfully.');
     }
 }
