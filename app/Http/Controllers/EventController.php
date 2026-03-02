@@ -26,7 +26,7 @@ class EventController extends Controller
 
     public function store(EventRequest $request)
     {
-        Event::create($request->all());
+        Event::create($request->validated());
 
         return back()->with('success', 'Event created!');
     }

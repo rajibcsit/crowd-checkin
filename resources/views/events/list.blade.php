@@ -40,6 +40,7 @@
             <div class="card">
                 <h3>{{ $event->name }}</h3>
                 <p><strong>Capacity:</strong> {{ $event->max_capacity }}</p>
+                <p><strong>Checked In:</strong> {{ $event->checked_in_count }}</p>
                 <a href="/events/{{ $event->id }}" class="view-btn">
                     View Dashboard →
                 </a>
