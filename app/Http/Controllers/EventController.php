@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -24,13 +24,8 @@ class EventController extends Controller
         return view('events.show', compact('event'));
     }
 
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'max_capacity' => 'required|integer|min:1'
-        ]);
-
         Event::create($request->all());
 
         return back()->with('success', 'Event created!');
